@@ -18,7 +18,7 @@ Package manager is Bun (`bun.lock`, `bunfig.toml`); npm also works per the READM
 - `bun run lint` — ESLint (includes Prettier as a lint rule)
 - `bun run format` — Prettier write
 
-There is no test suite.
+- `bun run test` — Vitest unit/component tests (jsdom + Testing Library), files `src/**/*.test.{ts,tsx}`; config in `vitest.config.ts`, separate from the Lovable `vite.config.ts`.
 
 ## Stack and architecture
 

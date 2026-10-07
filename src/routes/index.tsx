@@ -43,6 +43,7 @@ import sampleVilla from "@/assets/sample-villa.mp4.asset.json";
 import presenter from "@/assets/sample-presenter.jpg";
 import runner from "@/assets/sample-runner.jpg";
 import stretch from "@/assets/sample-stretch.jpg";
+import { FeedbackDialog } from "@/components/feedback-dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -85,6 +86,8 @@ const samples = [
   { video: sampleTravel.url, name: "Video mẫu 5" },
   { video: sampleLake.url, name: "Video mẫu 6" },
 ];
+
+const FEEDBACK_THANKS = "Cảm ơn bạn đã góp ý!";
 
 const projects = [
   { title: "cải phân tích xương — bản đề xuất 8 cảnh", meta: "Bản dự án · 2:44", image: null, active: true },
@@ -139,7 +142,14 @@ function Index() {
           <Home className="size-4" /> Trang chủ
         </Button>
         <div className="mt-auto flex h-[calc(100%-3rem)] items-end">
-          <Button variant="ghost" className="w-full justify-start"><MessageSquareText className="size-4" /> Phản hồi</Button>
+          <FeedbackDialog
+            onSubmit={() => setNotice(FEEDBACK_THANKS)}
+            trigger={
+              <Button variant="ghost" className="w-full justify-start">
+                <MessageSquareText className="size-4" /> Phản hồi
+              </Button>
+            }
+          />
         </div>
       </aside>
 
@@ -301,6 +311,14 @@ function Header({ onNotice }: { onNotice: (message: string) => void }) {
           <Button variant="nav" size="sm" onClick={() => onNotice("Bảng giá sẽ được cập nhật.")}><CircleDollarSign className="size-3.5" /><span className="hidden sm:inline">Giá cả</span></Button>
           <Button variant="nav" size="sm" onClick={() => onNotice("Đã mở thư viện dự án.")}><FolderOpen className="size-3.5" /><span className="hidden md:inline">Dự án</span></Button>
           <Button variant="nav" size="sm" onClick={() => onNotice("Đã mở thư viện âm thanh.")}><Headphones className="size-3.5" /><span className="hidden md:inline">Âm thanh</span></Button>
+          <FeedbackDialog
+            onSubmit={() => onNotice(FEEDBACK_THANKS)}
+            trigger={
+              <Button variant="nav" size="sm" aria-label="Phản hồi" className="xl:hidden">
+                <MessageSquareText className="size-3.5" />
+              </Button>
+            }
+          />
           <Button variant="nav" size="sm" onClick={() => onNotice("Tính năng đăng nhập đang chờ kết nối.")}><User className="size-3.5 sm:hidden" /><span className="hidden sm:inline">Đăng nhập</span></Button>
         </nav>
       </div>
