@@ -27,7 +27,7 @@ There is no test suite.
 - **Routing is file-based** in `src/routes/` (see `src/routes/README.md`). `__root.tsx` is the only layout (HTML shell, global `<head>` meta, Google Fonts Manrope/Sora, 404 and error components) and must keep its `<Outlet />`. `src/routeTree.gen.ts` is generated; never edit it.
 - `src/routes/index.tsx` holds the whole Clips workspace (header, URL/upload/drag-drop input, mode and tab switches, AI tool grid, sample videos, recent projects) as one component with local `useState`. Per `AGENTS.md`, keep it a single route built from reusable primitives.
 - `src/server.ts` (SSR entry, set via `tanstackStart.server.entry` in `vite.config.ts`) and `src/start.ts` (request middleware) wrap errors into `renderErrorPage()`. `start.ts` re-adds CSRF middleware for server functions; keep it if you edit that file.
-- `src/lib/error-capture.ts` and `src/lib/lovable-error-reporting.ts` forward runtime errors to Lovable's `window.__lovableEvents`.
+- `src/lib/error-capture.ts` keeps the last thrown server error (with its cause chain) so `server.ts` can log it after h3 swallows it into a generic 500. `src/lib/lovable-error-reporting.ts` forwards client errors to Lovable's `window.__lovableEvents`.
 - Path alias `@/*` → `src/*`. TypeScript is strict with `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`, so array lookups are `T | undefined` and optional props cannot be passed `undefined` explicitly.
 
 ## Styling conventions
